@@ -1,0 +1,36 @@
+{
+  "name": "csv-viewer",
+  "version": "1.0.0",
+  "description": "CSV viewer ",
+  "main": "index.js",
+  "dependencies": {
+    "babel-cli": "^6.18.0",
+    "csvtojson": "^1.1.2",
+    "express": "^4.14.0",
+    "express-fileupload": "0.0.5",
+    "express-json": "^1.0.0",
+    "lokijs": "^1.4.2",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.8.0"
+  },
+  "scripts": {
+    "start": "./node_modules/babel-cli/bin/babel.js --plugins transform-react-jsx ./spa/index.jsx > ./spa/index.js && node ./server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitaliy-komenda/csv-viewer.git"
+  },
+  "keywords": [
+    "csv",
+    "viewer"
+  ],
+  "author": "vitalii.komenda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitaliy-komenda/csv-viewer/issues"
+  },
+  "homepage": "https://github.com/vitaliy-komenda/csv-viewer#readme"
+}
