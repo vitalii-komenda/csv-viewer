@@ -3,10 +3,10 @@ class Net {
     this.url = 'http://localhost:3000';
   }
 
-  uploadFile(file) {
+  uploadFile(file, progressCb = ()=>{}) {
     const fd = new FormData();
     fd.append('file', file);
-    return this.send('import', fd, 'POST', true);
+    return this.send('import', fd, 'POST', progressCb);
   }
 
   search(query) {
@@ -17,7 +17,7 @@ class Net {
     return this.send('info', null, 'GET');
   }
 
-  send(route, query, method, isFile=false) {
+  send(route, query, method, fileUploadingProgress) {
     return new Promise((resolve, reject)=>{
       const request = new XMLHttpRequest();
       request.onreadystatechange = function () { 
@@ -30,8 +30,15 @@ class Net {
         } 
       }
       request.open(method, this.url + '/' + route, true);
-      if (method === 'POST' && isFile === false) {
+      if (method === 'POST' && !fileUploadingProgress) {
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      }
+      if (fileUploadingProgress) {
+        request.upload.onprogress = function(e) {
+          if (e.lengthComputable) {
+            fileUploadingProgress(((e.loaded / e.total) * 100).toFixed(0));
+          }
+        };
       }
       request.send(query);
     })

@@ -1,0 +1,36 @@
+body{
+    padding: 10px;
+    font-family: sans-serif;
+}
+
+.import-form{
+    background: #e9f5dc;
+    padding: 10px;
+    margin-bottom: 40px;
+}
+
+#searchField{
+    padding: 5px;
+    border: 1px solid #4CAF50;
+    box-shadow: 0px 3px 5px #e9f5dc;
+    margin-left: 10px;
+    width: 400px;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.search-item{
+    padding: 10px;
+    color: #424242;
+    font-size: 15px;
+}
+.link:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.item-item{
+    padding: 10px;
+    color: #424242;
+    font-size: 15px;
+}

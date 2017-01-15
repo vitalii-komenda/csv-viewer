@@ -3,8 +3,17 @@ var _this = this;
 const net = new Net();
 
 class ImportForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { progress: 100 };
+  }
+
   uploadFile(e) {
-    net.uploadFile(this.refs.file.files[0]).then(res => {
+    const progress = val => {
+      this.setState({ progress: val });
+    };
+
+    net.uploadFile(this.refs.file.files[0], progress).then(res => {
       if (res.error) {
         alert("Problem with importing", res.error);
       } else {
@@ -20,7 +29,7 @@ class ImportForm extends React.Component {
   render() {
     return React.createElement(
       "form",
-      { method: "post", enctype: "multipart/form-data" },
+      { className: "import-form", method: "post", enctype: "multipart/form-data" },
       React.createElement(
         "p",
         null,
@@ -31,6 +40,13 @@ class ImportForm extends React.Component {
           React.createElement("input", { id: "uploadField", ref: "file", type: "file", name: "file", accept: ".csv" })
         ),
         React.createElement("input", { type: "button", id: "uploadButton", onClick: this.uploadFile.bind(this), value: "Upload" })
+      ),
+      React.createElement(
+        "p",
+        { style: { display: this.state.progress > 99 ? 'none' : 'block' } },
+        "Uploading Progress: ",
+        this.state.progress,
+        "%"
       )
     );
   }
@@ -39,7 +55,7 @@ class ImportForm extends React.Component {
 const SearchItem = props => {
   return React.createElement(
     "div",
-    { onClick: props.onClick.bind(_this, props.result.id), id: "result-" + props.i },
+    { className: "search-item link", onClick: props.onClick.bind(_this, props.result.id), id: "result-" + props.i },
     React.createElement(
       "strong",
       null,
@@ -73,7 +89,7 @@ const ItemDetails = props => {
 
   return React.createElement(
     "div",
-    null,
+    { className: "item-item" },
     React.createElement(
       "div",
       null,
@@ -133,7 +149,7 @@ const ItemDetails = props => {
     React.createElement("br", null),
     React.createElement(
       "div",
-      { style: { cursor: 'pointer' }, onClick: props.onClick },
+      { className: "link", onClick: props.onClick },
       "Go back"
     )
   );
@@ -181,7 +197,7 @@ class Search extends React.Component {
         React.createElement(
           "label",
           { "for": "search" },
-          "Search:",
+          "Search: ",
           React.createElement("input", { type: "text", id: "searchField", onChange: this.search.bind(this), name: "search" })
         )
       ),
