@@ -6,7 +6,7 @@ Currently supports only file with structure: id, name, age, address, team
 ## Installation
 
 ```js
-npm install csv-viewer
+npm install
 ```
 
 ## Usage
