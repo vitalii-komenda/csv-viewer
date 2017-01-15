@@ -1,3 +1,4 @@
 node_modules
 uploads/data.csv
 uploads/loki.js
+spa/index.js
