@@ -99,6 +99,7 @@ class UserService{
     if (!text) {
       return [];
     }
+    text = text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
     return this.usersCollection
       .chain()
       .find({
