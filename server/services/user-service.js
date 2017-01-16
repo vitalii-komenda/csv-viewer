@@ -44,8 +44,8 @@ class UserService{
   getParsingProgress(file) {
     return this.getAmountOfLines(file).then((totalAmountOfLines)=>{
       return () => {
-        let parsedAmountOfLines = this.usersCollection.count();
-        let percentage = parsedAmountOfLines / (totalAmountOfLines / 100);
+        const parsedAmountOfLines = this.usersCollection.count();
+        const percentage = parsedAmountOfLines / (totalAmountOfLines / 100);
         return {
           progress: Math.round(percentage),
           totalAmountOfLines,
