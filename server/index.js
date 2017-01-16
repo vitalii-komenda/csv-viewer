@@ -1,5 +1,5 @@
 const express = require('express')
-const UsersService = require('./services/users-service')
+const UserService = require('./services/user-service')
 const app = express()
 require('express-ws')(app)
 const fileUpload = require('express-fileupload');
@@ -18,12 +18,12 @@ app.get('/', function (req, res) {
 })
 
 app.post('/search', function (req, res) {
-  const data = UsersService.search(req.body.query);
+  const data = UserService.search(req.body.query);
   res.json({results: data});
 })
 
 app.ws('/parse', function (ws, req) {
-  UsersService.getParsingProgress('./uploads/data.csv')
+  UserService.getParsingProgress('./uploads/data.csv')
     .then((progress)=>{
       const interval = setInterval(()=>{
         let res = progress();
@@ -37,7 +37,7 @@ app.ws('/parse', function (ws, req) {
       return Promise.resolve();
     })
     .then(()=>{
-      return UsersService.parse('uploads/data.csv');
+      return UserService.parse('uploads/data.csv');
     })
     .then(() => {
       console.log("File parsed");

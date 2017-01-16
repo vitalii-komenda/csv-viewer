@@ -2,7 +2,7 @@ const csv = require('csvtojson')
 const fs = require('fs');
 const loki = require('lokijs');
 
-class Users{
+class UserService{
   initDb() {
     const loadHandler = () => {
       // if database did not exist it will be empty so I will intitialize here
@@ -118,4 +118,4 @@ class Users{
   }
 }
 
-module.exports = new Users;
+module.exports = new UserService;
