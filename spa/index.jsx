@@ -3,20 +3,29 @@ const net = new Net();
 class ImportForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { progress: 100 };
+    this.state = { uploadingProgress: 100, processingProgress: 100 };
+  }
+
+  watchParsingProgress(){
+    const socket = new WebSocket('ws://localhost:3000/parse');
+    socket.addEventListener('message', (event) => {
+      console.log('Message from server', event.data);
+      this.setState({processingProgress: JSON.parse(event.data).progress})
+    });
   }
 
   uploadFile(e) {
-    const progress = (val) => {
-      this.setState({progress: val});
+    const uploadingProgress = (val) => {
+      this.setState({uploadingProgress: val});
     }
 
-    net.uploadFile(this.refs.file.files[0], progress)
+    net.uploadFile(this.refs.file.files[0], uploadingProgress)
       .then((res) => {
         if (res.error) {
           alert("Problem with importing", res.error);
         } else {
           alert("Imported successfully");
+          this.watchParsingProgress();
         }
       })
       .catch((err) => {
@@ -32,8 +41,11 @@ class ImportForm extends React.Component {
         <label for="file">Import CSV: <input id="uploadField" ref="file" type="file" name="file" accept=".csv" /></label>
         <input type="button" id="uploadButton" onClick={this.uploadFile.bind(this)} value="Upload" />
       </p>
-      <p style={{display: (this.state.progress > 99) ? 'none' : 'block' }}>
-        Uploading Progress: {this.state.progress}%
+      <p style={{display: (this.state.uploadingProgress > 99) ? 'none' : 'block' }}>
+        Uploading Progress: {this.state.uploadingProgress}%
+      </p>
+      <p style={{display: (this.state.processingProgress > 99) ? 'none' : 'block' }}>
+        Processing Progress: {this.state.processingProgress}%
       </p>
     </form>;
   }
