@@ -60,9 +60,9 @@ const SearchItem = (props) => {
 }
 
 const ItemDetails = (props) => {
-  const result = props.results.filter((result) => {
+  const result = props.results.find((result) => {
     return result.id === props.showDetailId;
-  })[0];
+  });
 
   return <div className="item-item">
     <div><strong>Name:</strong> {result.name}</div>
@@ -102,7 +102,7 @@ class Search extends React.Component {
   }
 
   render() {
-    const list = <div style={{ cursor: 'pointer' }}>
+    const list = <div>
       {this.state.results.map((result, i) => {
         return <SearchItem onClick={this.showDetails.bind(this)} result={result} i={i} />
       })}

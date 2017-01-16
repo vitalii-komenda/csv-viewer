@@ -10,7 +10,7 @@ class Net {
   }
 
   search(query) {
-    return this.send('search', "query=" + query, 'POST');
+    return this.send('search', 'query=' + query, 'POST');
   }
 
   isEmpty() {
@@ -31,7 +31,7 @@ class Net {
       }
       request.open(method, this.url + '/' + route, true);
       if (method === 'POST' && !fileUploadingProgress) {
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       }
       if (fileUploadingProgress) {
         request.upload.onprogress = function(e) {
